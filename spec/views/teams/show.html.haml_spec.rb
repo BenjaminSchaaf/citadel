@@ -27,7 +27,7 @@ describe 'teams/show' do
     @matches = []
     @matches << build_stubbed(:league_match, home_team: roster, status: 'confirmed')
     @matches << build_stubbed(:league_match, home_team: roster, status: 'pending',
-                                             round_name: 'Finals')
+                                             round_name: 'Finals', scheduled_at: Time.zone.now)
     @matches << build_stubbed(:bye_league_match, home_team: roster, status: 'confirmed')
     League::Match.forfeit_bies.each_key do |ff|
       @matches << build_stubbed(:league_match, home_team: roster, forfeit_by: ff,
@@ -98,6 +98,7 @@ describe 'teams/show' do
     @matches.each do |match|
       expect(rendered).to include(match.home_team.name)
       expect(rendered).to include(match.away_team.name) if match.away_team
+      expect(rendered).to include(match.scheduled_at.strftime('%c')) if match.scheduled_at
     end
 
     @users.each_value do |user|

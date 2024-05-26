@@ -12,6 +12,8 @@
   - if @league.divisions.size > 1
     #{@match.division.name} -
   = match_p.round_s
+  - if @match.scheduled_at.present?
+    \- #{match_p.scheduled_at}
 
 - if @match.bye?
   %br

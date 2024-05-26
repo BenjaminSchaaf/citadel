@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_142550) do
+ActiveRecord::Schema.define(version: 2024_05_22_191744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -330,6 +330,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_142550) do
     t.integer "total_home_team_round_wins", default: 0, null: false
     t.integer "total_away_team_round_wins", default: 0, null: false
     t.integer "total_round_draws", default: 0, null: false
+    t.datetime "scheduled_at"
     t.index ["away_team_id"], name: "index_league_matches_on_away_team_id"
     t.index ["home_team_id"], name: "index_league_matches_on_home_team_id"
     t.index ["loser_id"], name: "index_league_matches_on_loser_id"

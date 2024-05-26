@@ -20,6 +20,8 @@
       = f.check_box :has_winner, label: 'Has a Distinct Winner', label_class: 'pl-1'
       = f.check_box :allow_round_draws, label: 'Allow set draws', label_class: 'pl-1'
 
+    = f.datetime_select :scheduled_at, label: 'Match date', include_blank: true, start_year: 2016,
+                        end_year: Time.zone.today.year + 1, minute_step: 5
     = f.number_field :round_number, label: 'Round Number (Used for ordering)'
     = f.text_field :round_name, label: 'Round Name (Display Name)'
     = f.markdown_editor :notice, id: dom_id(div), rows: 6, no_escape: true

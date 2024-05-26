@@ -245,4 +245,10 @@ describe 'leagues/matches/show' do
 
     include_examples 'displays matches'
   end
+
+  context 'with match date' do
+    before { match.scheduled_at = Time.zone.now }
+
+    include_examples 'displays matches'
+  end
 end
