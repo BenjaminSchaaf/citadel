@@ -1,0 +1,24 @@
+.card.mb-3
+  .card-header Rescheduling
+
+  - match.schedule_edits.ordered.each do |e|
+    %li.list-group-item.d-flex.align-items-center
+      %span.mr-2
+        = present(e)
+      - if user_can_decide_schedule_edit?(edit: e)
+        = button_to approve_schedule_edit_path(e), method: :patch,
+          class: 'btn btn-success mr-2' do
+          Approve
+        = button_to deny_schedule_edit_path(e), method: :patch,
+          class: 'btn btn-warning' do
+          Deny
+
+  - if user_can_create_schedule_edit?
+    %li.list-group-item
+      = bootstrap_form_for edit, as: :schedule_edit, url: match_schedule_edit_index_path(match),
+                           layout: :inline do |f|
+        = f.datetime_select :scheduled_at, label: 'Reschedule match',
+                            start_year: Time.zone.today.year, end_year: Time.zone.today.year + 1,
+                            minute_step: 5, selected: match.scheduled_at || Time.zone.now
+
+        .pull-right.ml-2= f.submit 'Request'

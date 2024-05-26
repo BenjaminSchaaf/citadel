@@ -74,6 +74,7 @@ module Leagues
       match_show_includes
 
       @comm = League::Match::Comm.new(match: @match)
+      @edit = League::Match::ScheduleEdit.new(match: @match)
     end
 
     def edit

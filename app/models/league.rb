@@ -37,6 +37,7 @@ class League < ApplicationRecord
   validates :schedule_locked,                          inclusion: { in: [true, false] }
   validates :forfeit_all_matches_when_roster_disbands, inclusion: { in: [true, false] }
   validates :hide_rosters,                             inclusion: { in: [true, false] }
+  validates :allow_rescheduling,                       inclusion: { in: [true, false] }
 
   validates :min_players, presence: true, numericality: { greater_than: 0 }
   validates :max_players, presence: true, numericality: { greater_than_or_equal_to: 0 }

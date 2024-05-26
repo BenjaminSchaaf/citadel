@@ -71,6 +71,14 @@ Rails.application.routes.draw do
           patch 'defer'
         end
       end
+
+      resources :schedule_edit, controller: 'leagues/matches/schedule_edits',
+                                only: [:create] do
+        member do
+          patch 'approve'
+          patch 'deny'
+        end
+      end
     end
   end
 
