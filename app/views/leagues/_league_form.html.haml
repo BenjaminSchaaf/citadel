@@ -1,13 +1,22 @@
 .card.mb-3
-  .card-header Info
+  .card-header
+    %b Info
   .card-body
     = f.select :format_id, format_options
+    = inline_svg_tag 'open_iconic/pencil.svg', class: 'icon mr-2'
+    %small Tip: Can't find the format you are looking for here? Reach out to us in our Discord.
+    %hr
     = f.text_field :name
+    %hr
     = f.markdown_editor :description, rows: 10, no_escape: true
+    %hr
     = f.text_field :category
+    = inline_svg_tag 'open_iconic/pencil.svg', class: 'icon mr-2'
+    %small Tip: The category is shown in the dropdown on the Leagues page, allowing you to display only leagues with this category set.
 
 .card.mb-3
-  .card-header Players
+  .card-header
+    %b Players
   .card-body
     .form-group
       = f.number_field :min_players, min: 1, label: 'Minimum'
@@ -15,7 +24,8 @@
       = f.number_field :max_players, min: 0, label: 'Maximum (0 for unlimited)'
 
 .card.mb-3
-  .card-header State
+  .card-header
+    %b State
   .card-body
     = f.check_box :signuppable, label_class: 'pl-1'
     = f.check_box :hide_rosters, label_class: 'pl-1'
@@ -25,8 +35,13 @@
     = f.check_box :allow_disbanding, label_class: 'pl-1'
     = f.check_box :forfeit_all_matches_when_roster_disbands, label_class: 'pl-1'
 
+  .card-footer
+    = inline_svg_tag 'open_iconic/pencil.svg', class: 'icon mr-2'
+    %small Tip: Check the state options above prior to releasing the league, during the signups period and when the competition is live.
+
 .card.mb-3
-  .card-header Points
+  .card-header
+    %b Points
   .card-body
     = f.number_field :points_per_round_win,  label: 'Points per set won', step: :any
     = f.number_field :points_per_round_draw, label: 'Points per set drawn', step: :any
@@ -41,7 +56,7 @@
 .card.mb-3
   .card-header
     .row.no-gutters.flex-nowrap.align-items-center
-      .mr-2 Tiebreaking
+      %b Tiebreaking
 
       .spacer
 
@@ -59,7 +74,7 @@
 .card.mb-3
   .card-header
     .row.no-gutters.flex-nowrap.align-items-center
-      .mr-2 Divisions
+      %b Divisions
 
       .spacer
 
@@ -74,10 +89,14 @@
 
     #divisions
 
+  .card-footer
+    = inline_svg_tag 'open_iconic/pencil.svg', class: 'icon mr-2'
+    %small Tip: Don't delete a division with signups/teams in it still. Move the signups/teams to another division before deleting the division.
+
 .card.mb-3
   .card-header
     .row.no-gutters.flex-nowrap.align-items-center
-      .mr-2 Map Pool (Leave empty for all maps)
+      %b Map Pool (Leave empty for all maps)
 
       .spacer
 
@@ -92,8 +111,13 @@
 
     #pooled-maps
 
+  .card-footer
+    = inline_svg_tag 'open_iconic/pencil.svg', class: 'icon mr-2'
+    %small Tip: Need a map added? Reach out to us in our Discord.
+
 .card.mb-3
-  .card-header Scheduling
+  .card-header
+    %b Scheduling
   .card-body
     = f.check_box :schedule_locked
     = f.select(:schedule, League.schedules.map { |name, _| [name.humanize, name] })

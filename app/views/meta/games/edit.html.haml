@@ -1,5 +1,6 @@
 .card.mb-3
-  .card-header Information
+  .card-header
+    %b Information
   .card-body
     = bootstrap_form_for @game, url: meta_game_path(@game) do |f|
       = render 'game_form', f: f

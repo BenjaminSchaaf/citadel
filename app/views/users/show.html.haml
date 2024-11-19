@@ -31,19 +31,23 @@
       %span= @user.steam_id
 
     .row.align-items-center.steam-link.mt-2
-      = link_to "LEGACY HL (RSL)", 'https://rsl.tf/users/steam_id/' + @user.steam_id.to_s, class: 'steam_link'
+      = link_to "STEAMREP", 'https://steamrep.com/search?q=' + @user.steam_id.to_s, class: 'steam_link'
       %span.mx-2='|'
-      = link_to "LOGS.TF", 'http://logs.tf/profile/' + @user.steam_id.to_s, class: 'steam_link'
+      = link_to "LOGS.TF", 'https://logs.tf/profile/' + @user.steam_id.to_s, class: 'steam_link'
+      %span.mx-2='·'
+      = link_to "MORE.TF", 'https://more.tf/profile/' + @user.steam_id.to_s, class: 'steam_link'
+      %span.mx-2='·'
+      = link_to "TRENDS.TF", 'https://trends.tf/player/' + @user.steam_id.to_s, class: 'steam_link'
       %span.mx-2='·'
       = link_to "DEMOS.TF", 'https://demos.tf/profiles/' + @user.steam_id.to_s, class: 'steam_link'
       %span.mx-2='·'
-      = link_to "ETF2L", 'http://etf2l.org/search/' + @user.steam_id.to_s, class: 'steam_link'
-      %span.mx-2='·'
       = link_to "RGL", 'https://rgl.gg/public/PlayerProfile.aspx?p=' + @user.steam_id.to_s, class: 'steam_link'
       %span.mx-2='·'
-      = link_to "UGC", 'http://www.ugcleague.com/players_page.cfm?player_id=' + @user.steam_id.to_s, class: 'steam_link'
+      = link_to "ETF2L", 'https://etf2l.org/search/' + @user.steam_id.to_s, class: 'steam_link'
       %span.mx-2='·'
-      = link_to "MATCH.TF", 'https://match.tf/users/steam_id/' + @user.steam_id.to_s, class: 'steam_link'
+      = link_to "UGC", 'https://www.ugcleague.com/players_page.cfm?player_id=' + @user.steam_id.to_s, class: 'steam_link'
+      %span.mx-2='·'
+      = link_to "CLTF2", 'https://cltf2.com/users/steam_id/' + @user.steam_id.to_s, class: 'steam_link'
 
 .row.mb-3
   != present_collection(@titles).map(&:icon).join(' ')
@@ -68,8 +72,10 @@
 
 - if user_p.notice != '' && (user_can_edit_users? || (current_user? && current_user == @user))
   .card.mb-3
-    .card-header.bg-warning Notice
+    .card-header.bg-warning Player Behaviour Infractions & League Penalties
     .card-body.markdown= user_p.notice
+    .card-footer
+      %small You can find more information regarding Player Behaviour Infractions #{link_to 'here', 'https://docs.ozfortress.com/rules/infractions/'}, and League Penalties #{link_to 'here', 'https://docs.ozfortress.com/rules/penalties/'}.
 
 .nav.nav-tabs{ role: 'tablist' }
   %a.nav-item.nav-link.active#info-tab{ href: '#info', role: 'tab', data: { toggle: 'tab' },
@@ -92,7 +98,6 @@
       = render 'users/show_leagues', user: @user, roster_transfers: @roster_transfers
   .tab-pane#forums{ role: 'tabpanel', aria: { labelledby: 'forums-tab' } }
     = render 'users/show_forums', user: @user, forums_posts: @forums_posts
-
 
 - if user_can_edit_users?
   %hr

@@ -1,7 +1,8 @@
 - no_team_fields = false if local_assigns[:no_team_fields].nil?
 
 .card.mb-3
-  .card-header Match Settings
+  .card-header
+    %b Match Settings
   .card-body
     - unless no_team_fields
       / TODO: Properly handle errors here.
@@ -27,7 +28,7 @@
 .card.mb-3
   .card-header
     .row.no-gutters.flex-nowrap.align-items-center
-      .mr-2 Picks & Bans
+      %b Picks & Bans
 
       .spacer
 
@@ -48,7 +49,7 @@
 .card.mb-3
   .card-header
     .row.no-gutters.flex-nowrap.align-items-center
-      .mr-2 Sets
+      %b Sets
 
       .spacer
 

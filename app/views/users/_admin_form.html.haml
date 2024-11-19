@@ -1,4 +1,4 @@
 = f.text_field :badge_name
 = f.select :badge_color, UserPresenter::BADGE_COLORS.each_with_index.to_a
 
-= f.markdown_editor :notice, row: 3, label: 'Notice (Only visible for user)'
+= f.markdown_editor :notice, row: 3, label: 'Notice (only visible for the user)'

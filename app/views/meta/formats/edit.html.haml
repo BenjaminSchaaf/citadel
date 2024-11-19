@@ -1,5 +1,6 @@
 .card.mb-3
-  .card-header Information
+  .card-header
+    %b Information
   .card-body
     = bootstrap_form_for @format, as: :format_, url: meta_format_path(@format) do |f|
       = render 'format_form', f: f

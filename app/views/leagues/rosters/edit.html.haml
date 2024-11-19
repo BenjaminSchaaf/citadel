@@ -29,7 +29,8 @@
 
 
 .card.mb-3
-  .card-header Info
+  .card-header
+    %b Roster Info
   .card-body
     = bootstrap_form_for @roster, as: :roster, url: roster_path(@roster) do |f|
       - if user_can_edit_league?
@@ -37,7 +38,6 @@
         = f.select :division_id, divisions_select(@league), label: 'Division'
         = f.number_field :seeding
         = f.number_field :ranking
-        = f.markdown_editor :notice, rows: 3, label: 'Notice (Public)'
 
       = render 'form', f: f
 
@@ -53,22 +53,17 @@
           = link_to 'Cancel', team_path(@roster.team), class: 'btn btn-link mr-2'
           = f.primary 'Update'
 
-  .card-header Roster Content Guidelines
-  .card-body
-    %p
-      Your roster name
-      %b can not
-      contain the following:
-    %ul
-      %li Emojis or special characters.
-      %li Blank characters or characters to otherwise break the name field.
-      %li Links/URLs.
-      %li Anything that violates our Community Guidelines.
-
 = render 'leagues/rosters/transfers/index',
          league: @league, roster: @roster, new_transfer_request: @transfer_request,
          users_on_roster: @users_on_roster, users_off_roster: @users_off_roster
 
+- if user_can_edit_league?
+  .card.border-danger.mb-3
+    .card-header.text-white.bg-danger
+      %b Admin Only
+    .card-body
+      = bootstrap_form_for @roster, as: :roster, url: roster_path(@roster) do |f|
+        = f.markdown_editor :notice, rows: 3, label: 'Notice (only visible for Captains & Admins)'
 
 - if user_can_disband_roster? || user_can_destroy_roster?
   .alert.alert-danger.mb-3

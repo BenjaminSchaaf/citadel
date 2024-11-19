@@ -1,3 +1,22 @@
+
+.card
+  .card-header League Partners
+  %ul.list-group.list-group-flush
+    %li.list-group-item
+      = link_to 'https://au.serveme.tf', target: 'blank', rel: :noopener do
+        serveme
+    %li.list-group-item
+      = link_to 'https://twitch.tv/kritzkast', target: 'blank', rel: :noopener do
+        KritzKast
+    %li.list-group-item
+      = link_to 'https://twitch.tv/CappingTV', target: 'blank', rel: :noopener do
+        CappingTV
+    %li.list-group-item
+      = link_to 'https://callouts.tf', target: 'blank', rel: :noopener do
+        callouts.tf
+
+%br
+
 .card
   .card-header Socials
   %ul.list-group.list-group-flush
@@ -7,11 +26,11 @@
         Join our Discord
     %li.list-group-item
       = link_to 'http://twitter.com/ozfortress', target: '_blank', rel: :noopener do
-        = image_tag 'twitter-logo.png', width: 32
-        Follow us on Twitter
+        = image_tag 'twitter-logo.svg', width: 32
+        Follow us on X
     %li.list-group-item
       = link_to 'https://www.patreon.com/ozfortress/', target: '_blank', rel: :noopener do
-        = image_tag 'patreon-logo.png', width: 32
+        = image_tag 'patreon-logo.png', height: 32
         Support us on Patreon
     %li.list-group-item
       = link_to 'https://www.youtube.com/channel/UCKnMgeTAHzdttd8TXE9UOgw', target: '_blank', rel: :noopener do

@@ -4,10 +4,12 @@
     - roster_p = present(roster)
     - matches = active_roster_matches[roster] || []
 
-    - if roster_p.notice != ''
-      .alert.alert-warning.mb-3
-        .alert-heading Notice
-        .markdown= roster_p.notice
+    - if user_can_manage_transfers?(roster) && roster_p.notice != ''
+      .card.mb-3
+        .card-header.bg-warning League Penalties
+        .card-body.markdown= roster_p.notice
+        .card-footer
+          %small You can find more information regarding League Penalties #{link_to 'here', 'https://docs.ozfortress.com/rules/penalties/'}.
 
     = render 'teams/show_roster', team: team, roster: roster, roster_p: roster_p, users: users, matches: matches
 
@@ -17,5 +19,14 @@
   - past_rosters.each do |roster|
     - roster_p = present(roster)
     - matches = past_roster_matches[roster] || []
+
+    - if user_can_manage_transfers?(roster) && roster_p.notice != ''
+      .card.mb-3
+        .card-header.bg-warning League Penalties
+        .card-body.markdown= roster_p.notice
+      .alert.alert-info.mb-3
+        .alert-heading
+          You can find more information regarding League Penalties #{link_to 'here', 'https://docs.ozfortress.com/rules/penalties/'}.
+
 
     = render 'teams/show_roster', team: team, roster: roster, roster_p: roster_p, users: users, matches: matches

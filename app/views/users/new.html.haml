@@ -4,12 +4,25 @@
 
 %h1 Register with [#{@user.steam_id3}]
 
-= bootstrap_form_for @user, method: :new do |f|
-  = f.text_field :name
-  = render 'form', f: f, user: @user, user_p: user_p
+.card.mb-3
+  .card-header
+    %b= link_to "Create account with your Steam account", 'https://steamcommunity.com/profiles/' + @user.steam_id.to_s, class: 'steam_link'
+  
+  .card-body
+    = bootstrap_form_for @user, method: :new do |f|
+      = f.text_field :name
+      = render 'form', f: f, user: @user, user_p: user_p
 
-  .d-flex.justify-content-end
-    = link_to 'Cancel', :back, class: 'btn btn-link mr-2'
-    = f.submit 'Register'
+      .d-flex.justify-content-end
+        = link_to 'Cancel', :back, class: 'btn btn-link mr-2'
+        = f.submit 'Register'
 
-%p By signing up, you are agreeing to our Community Guidelines & User Policy.
+%hr
+
+%h5 Signup Agreement
+%span By signing up, you are agreeing to our
+= link_to 'https://docs.ozfortress.com/rules/community_guidelines/', target: '_blank', rel: :noopener do
+  Community Guidelines
+%span &
+= link_to 'https://docs.ozfortress.com/rules/user_policy/', target: '_blank', rel: :noopener do
+  User Policy

@@ -52,7 +52,8 @@
 
 
   .card.mb-3
-    .card-header Picks/Bans #{match_p.status}
+    .card-header
+      %b Picks/Bans #{match_p.status}
 
     - can_view_scores = !@match.confirmed? && user_can_either_teams? && @league.matches_submittable?
     - if can_view_scores || user_can_edit_league?
@@ -63,7 +64,8 @@
 
   - if @match.notice.present? && (user_on_either_teams? || user_can_edit_league?)
     .card.mb-3
-      .card-header Match Notice
+      .card-header
+        %b Match Notice
       .card-body.markdown= match_p.notice
 
   - if @match.home_team.schedule_data && @match.away_team.schedule_data

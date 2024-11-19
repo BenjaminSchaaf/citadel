@@ -30,6 +30,10 @@
       = inline_svg_tag 'open_iconic/people.svg', class: 'icon mr-2'
       Signups
 
+    = link_to league_medals_path(@league), class: 'btn btn-admin' do
+      = inline_svg_tag 'open_iconic/badge.svg', class: 'icon mr-2'
+      Medals
+
     .spacer.d-none.d-md-block
 
     = link_to edit_league_path(@league), class: 'btn btn-admin', type: 'button' do

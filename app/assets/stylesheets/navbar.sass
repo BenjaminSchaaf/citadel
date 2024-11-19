@@ -59,6 +59,36 @@ $notification-hover-background-color: #eeeeee
       &:hover
         background-color: $notification-hover-background-color
 
+//Nav dropdown button / menu -------------------- //
+
+@media screen and (max-width: 991px)
+  .nav-dropdown-menu
+    background: #343a40
+    border: none
+
+    .dropdown-item
+      color: #83878b
+  
+  .dropdown-header
+    display: none
+
+  .dropdown-divider
+    display: none
+
+@media screen and (min-width: 992px)
+  .nav-dropdown-menu
+    margin-top: 1rem
+    display: block
+    visibility: hidden
+    opacity: 0
+    transform: translateY(-0.5rem)
+    transition: 0.3s ease all
+
+    &.show
+      visibility: visible
+      opacity: 1
+      transform: translateY(0)
+
 // Misc -------------------- //
 
 .dropdown-menu-animated

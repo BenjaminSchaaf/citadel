@@ -1,0 +1,65 @@
+- content_for(:title) { "Medal Distribution for #{@league.name}" }
+
+%h1 Medal Distribution for #{@league.name}
+
+%p.alert.alert-warning Please Note: We do not provide a way of distributing your promotional items/medals, only a way of downloading lists of SteamID64 IDs for individual teams or divisions. For distribution, we recommend PGrant, or whatever Valve provides when receiving the promotional item IDs for your medals.
+
+%hr
+
+.row    
+  .col-md-12
+    .panel.panel-container
+      .panel-body.table-responsive
+        - @ordered_rosters.each do |div, rosters|
+          %h3= div.name
+          %table.table
+            %tr
+              %th #
+              %th Team
+              %th Points
+              %th Add to the list
+              - present_collection(@league.tiebreakers).each do |tiebreaker|
+                %th= tiebreaker.name_with_tooltip
+      
+            - rosters.each_with_index do |roster, rank|
+              %tr
+                %th{ scope: 'row' }= rank + 1
+                %td
+                  = present(roster).listing
+                  %ul{:class => "steamids", style: "display: none"} 
+                    - roster.users.each do |player|
+                      %li
+                        =player.steam_id              
+                %td= roster.points
+                - @league.tiebreakers.each do |tiebreaker|
+                  %th= tiebreaker.value_for(roster)
+                %td
+                  %input{:name => "list", :type => "checkbox"}   
+    %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :id => "download"} Download    
+    %br
+
+:javascript
+  $(function() {
+      function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+  
+      $("#download").click(function () {
+          var ids = [];
+          $("input:checked").each(function () {
+              list = $(this).parent().parent().find(".steamids > li");       
+              list.each(function () { 
+                  var temp = $(this).html().replace(/(\r\n\t|\n|\r\t)/gm,"");
+                  ids.push(temp);
+              });
+          });  
+          console.log(ids);
+          download("MedalSteam64IDs" + Date.now() + ".txt", ids.join("\n"));
+      });
+  }); 

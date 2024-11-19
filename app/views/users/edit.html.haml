@@ -7,7 +7,8 @@
 %hr
 
 .card.mb-3
-  .card-header Change your ozfortress.com name
+  .card-header
+    %b Change your ozfortress.com name
   .card-body
     = bootstrap_form_for @name_change, url: name_user_path(@user),
                          method: :post, as: :name_change do |f|
@@ -15,29 +16,13 @@
 
       = f.primary 'Request Name Change'
 
-  .card-header Name Change Request Guidelines
-  .card-body
-    %p
-      Your name
-      %b can not
-      contain the following:
-    %ul
-      %li Emojis or special characters.
-      %li Blank characters or characters to otherwise break the name field.
-      %li Links/URLs.
-      %li Anything that violates our Community Guidelines.
-    %br/
-    %p
-      The following
-      %b may
-      result in your Name Change Request being denied:
-    %ul
-      %li Inappropriate or Not Safe for Work memes/meme names.
-      %li Non-emoji faces without a name next to them.
-      %li Obscured or otherwise "sneaky" references to anything that breaks our Community Guidelines.
+  .card-footer
+    = inline_svg_tag 'open_iconic/document.svg', class: 'icon mr-2'
+    %small We do not process name change requests until there are no current active seasonal leagues.
 
 .card.mb-3
-  .card-header General
+  .card-header
+    %b Account Info
   .card-body
     = bootstrap_form_for @user, method: :patch do |f|
       = render 'form', f: f, user: @user, user_p: user_p
@@ -46,22 +31,19 @@
         = link_to 'Cancel', user_path(@user), class: 'btn btn-link mr-2'
         = f.primary 'Save'
 
-  .card-header Profile Content Guidelines
-  .card-body
-    %p
-      Your profile (avatar and description)
-      %b can not
-      contain the following:
-    %ul
-      %li Nudity or Sexual Content.
-      %li Inappropriate or Not Safe for Work memes.
-      %li Blank characters or characters to otherwise break the description field.
-      %li Anything that violates our Community Guidelines.
+  .card-footer
+    = inline_svg_tag 'open_iconic/document.svg', class: 'icon mr-2'
+    %small See our 
+    = link_to 'https://docs.ozfortress.com/rules/user_policy/', target: '_blank', rel: :noopener do
+      %small User Policy
+    %small for email privacy information. Your email is only used for website notifications, not for marketing/promotions.
 
 - if user_can_edit_users?
   .card.border-danger.mb-3
-    .card-header.text-white.bg-danger Admin Only
+    .card-header.text-white.bg-danger
+      %b Admin Only
     .card-body
+      %h5 User Management
       = bootstrap_form_for @user, method: :patch do |f|
         = render 'admin_form', f: f, user: @user, user_p: user_p
 
@@ -71,8 +53,10 @@
           = link_to 'Cancel', user_path(@user), class: 'btn btn-link mr-2'
           = f.primary 'Save'
 
+      %hr
+
     .card-body
-      %h5 Send Notification
+      %h5 Send notification to #{@user.name}
       - notification = @user.notifications.new
       = bootstrap_form_for notification, url: user_notifications_path(user_id: @user.id), as: :notification,
                                          method: :post do |f|

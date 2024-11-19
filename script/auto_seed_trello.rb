@@ -58,7 +58,7 @@ rosters_with_values.each do |roster, value|
   body << 'Roster:'
   roster.users.each do |user|
     user_p = UserPresenter.new(user, nil)
-    body << "\t#{user.name}\t[[#{user.steam_id3}](#{user_p.steam_profile_url})]"
+    body << "\t#{user.name}\t[[#{user.steam_id3}](https://ozfortress.com/users/steam_id/#{user.steam_id})]"
   end
 
   p body

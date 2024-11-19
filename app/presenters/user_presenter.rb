@@ -45,7 +45,7 @@ class UserPresenter < BasePresenter
     has_captain_label = team && user.can?(:edit, team) && user.can?(:use, :teams)
 
     titles = []
-    titles << content_tag(:span, 'Captain', class: 'badge badge-danger') if has_captain_label
+    titles << content_tag(:span, 'Captain', class: 'badge badge-secondary') if has_captain_label
     titles << badge if user.badge?
     safe_join(titles, ' ')
   end

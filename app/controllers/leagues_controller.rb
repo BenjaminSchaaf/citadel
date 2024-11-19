@@ -1,12 +1,16 @@
 class LeaguesController < ApplicationController
   include LeaguePermissions
 
-  before_action except: [:index, :new, :create] do
+  before_action except: [:index, :new, :create, :medals] do
     @league = League.includes(:tiebreakers).find(params[:id])
   end
 
+  before_action only: [:medals] do
+    @league = League.includes(:tiebreakers).find(params[:league_id])
+  end  
+
   before_action :require_user_leagues_permission, only: [:new, :create, :destroy]
-  before_action :require_user_league_permission, only: [:edit, :update, :modify]
+  before_action :require_user_league_permission, only: [:edit, :update, :modify, :medals]
   before_action :require_league_not_hidden_or_permission, only: [:show]
   before_action :require_hidden, only: [:destroy]
 
@@ -38,6 +42,18 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    @rosters = @league.rosters.includes(:division)
+    @ordered_rosters = @league.ordered_rosters_by_division
+    @divisions = @ordered_rosters.map(&:first)
+    @roster = @league.roster_for(current_user) if user_signed_in?
+    @personal_matches = @roster.matches.pending.ordered.reverse_order.includes(:home_team, :away_team) if @roster
+    @top_div_matches = @divisions.first.matches.pending.ordered
+                                 .includes(:home_team, :away_team).last(5)
+    @matches = @league.matches.ordered.includes(:rounds, :home_team, :away_team)
+                      .group_by(&:division)
+  end
+
+  def medals
     @rosters = @league.rosters.includes(:division)
     @ordered_rosters = @league.ordered_rosters_by_division
     @divisions = @ordered_rosters.map(&:first)

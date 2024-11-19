@@ -76,7 +76,7 @@
         };
     }
 
-    function render(containerj, canvas) {
+    function render(containerj, canvas, target) {
         // Use twice the scale for better resolution on high dpi displays
         var container = containerj[0];
         var width = container.scrollWidth;
@@ -91,7 +91,8 @@
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.scale(2, 2);
-        context.lineWidth = 2;
+        context.lineWidth = 4;
+        context.strokeStyle = '#00abba';
 
         var canvasj = $(canvas);
         containerj.find('.bracket-round').each(function() {
@@ -102,7 +103,7 @@
 
             round.find('.bracket-match').each(function() {
                 var match = $(this);
-                match.find('.bracket-team').each(function() {
+                match.find('.bracket-team[data-team-id="'+target+'"]').each(function() {
                     var team = $(this);
                     var teamId = team.data('team-id');
                     var rightPos = rightPosition(canvasj, team);
@@ -138,8 +139,14 @@
                 buildRound(rounds[index], roundMatches, teams).appendTo(container);
             });
 
-            $(window).on('resize', function() { render(container, canvas); });
-            render(container, canvas);
+            $('.bracket-team').each(function() {
+                $(this).on("mouseover", function(){
+                  render(container, canvas, $(this).data("team-id"))
+                });
+              });
+
+            //$(window).on('resize', function() { render(container, canvas); });
+            //render(container, canvas);
 
             // Scroll to the right of the bracket
             container.scrollLeft(canvas.scrollWidth);

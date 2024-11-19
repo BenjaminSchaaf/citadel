@@ -1,5 +1,6 @@
 .card.mb-3
-  .card-header Information
+  .card-header
+    %b Information
   .card-body
     = bootstrap_form_for @map, url: meta_map_path(@map) do |f|
       = render 'map_form', f: f

@@ -2,7 +2,9 @@
 
 - content_for(:title) { "Edit: #{match_p} | #{@league.name}" }
 
-%h1 Edit Match
+%h1
+  Editing Match ID:
+  %code= match_p.id
 %h2= match_p.link
 
 .mb-5

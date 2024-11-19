@@ -1,6 +1,7 @@
 - if league.schedule == 'weeklies'
   .card.mb-3
-    .card-header Shared Availability
+    .card-header
+      %b Shared Availability
     .card-body
       Schedule suggestions (based on both team's shared availability):
       %b= league.scheduler.common_schedule(match.home_team, match.away_team).join(', ')

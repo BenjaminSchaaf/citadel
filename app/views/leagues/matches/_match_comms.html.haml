@@ -1,6 +1,6 @@
 .card.mb-3#match-comms
   .card-header
-    Match Communications (Match Comms)
+    %b Match Communications (aka Match Comms)
 
   .card-body.p-0
     - comms.each do |comm|
@@ -16,22 +16,3 @@
 
         .d-flex.justify-content-end
           = f.primary 'Post'
-
-  .card-header Post Guidelines
-  .card-body
-    %p
-      Please ensure your posts in Match Communications
-      %b does not
-      contain the following:
-    %ul
-      %li Anything unrelated to the match. This is an infractable offence.
-      %li Anything that violates our Community Guidelines.
-
-  .card-header Expected Match Details
-  .card-body
-    %p Your Match Communications should (by the end of that round) contain:
-    %ul
-      %li The agreed upon, scheduled match day and time.
-      %li Indication as to which team won what map.
-      %li logs.tf links for each map, which you can find easily via your ozfortress.com profile.
-      %li Any mercenaries used within the match (it is expected that each team declares their approved mercenaries here).

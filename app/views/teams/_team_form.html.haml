@@ -2,9 +2,6 @@
 
 = f.text_field :name
 
-- if user_can_edit_teams?
-  = f.markdown_editor :notice, rows: 3, label: 'Notice (Public)'
-
 = f.file_field :avatar, accept: 'image/png,image/jpeg'
 = f.hidden_field :avatar_cache
 - if team.avatar.file
@@ -12,3 +9,6 @@
     = f.check_box :remove_avatar, label_class: 'ml-1'
 
 = f.markdown_editor :description, rows: 10
+
+- if user_can_edit_teams?
+  = f.markdown_editor :notice, rows: 3, label: 'Notice (Public)'

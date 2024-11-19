@@ -1,7 +1,8 @@
 .row
   .col-lg-6
     .card.mb-3
-      .card-header Players on Roster
+      .card-header
+        %b Players on Roster
 
       - if users_on_roster.empty?
         .card-body.text-muted
@@ -42,7 +43,8 @@
 
   .col-lg-6
     .card.mb-3
-      .card-header Players off Roster
+      .card-header
+        %b Players off Roster
 
       - if users_off_roster.empty?
         .card-body.text-muted
