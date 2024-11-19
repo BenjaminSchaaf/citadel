@@ -152,6 +152,43 @@ describe LeaguesController do
     end
   end
 
+  describe 'GET #medals' do
+    let(:user) { create(:user) }
+    let!(:comp) { create(:league) }
+    let!(:div) { create(:league_division, league: comp) }
+
+    it 'succeeds for authorized user' do
+      sign_in admin
+      get :edit, params: { id: comp.id }
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'succeeds for users on a roster' do
+      roster = create(:league_roster, division: div)
+      roster.add_player!(user)
+      sign_in user
+
+      get :show, params: { id: comp.id }
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'succeeds for any user' do
+      sign_in user
+
+      get :show, params: { id: comp.id }
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'succeeds for anyone' do
+      get :show, params: { id: comp.id }
+
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #edit' do
     let(:comp) { create(:league) }
 
