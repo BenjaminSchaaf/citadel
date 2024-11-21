@@ -5,7 +5,7 @@ module API
         type :match
 
         attributes :id, :forfeit_by, :status, :round_name, :round_number, :notice
-        attributes :created_at
+        attributes :created_at, :scheduled_at
 
         belongs_to :league
         has_one :home_team, serializer: RosterSerializer

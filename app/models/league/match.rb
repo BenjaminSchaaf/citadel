@@ -16,6 +16,8 @@ class League
 
     has_many :comms, class_name: 'Match::Comm', dependent: :destroy
 
+    has_many :schedule_edits, class_name: 'Match::ScheduleEdit', dependent: :destroy
+
     delegate :division, :league, to: :home_team, allow_nil: true
 
     validates :rounds, associated: true # Make *really* sure all rounds are valid
@@ -70,6 +72,12 @@ technical_forfeit: 4 }
 
     def bye?
       !away_team_id
+    end
+
+    def users
+      users = home_team.users
+      users.union(away_team.users) unless bye?
+      users
     end
 
     def picking_completed?

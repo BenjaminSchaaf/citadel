@@ -6,7 +6,7 @@ describe 'leagues/show' do
   let(:roster) { build_stubbed(:league_roster) }
   let(:matches) do
     [
-      build_stubbed(:league_match, status: :confirmed),
+      build_stubbed(:league_match, status: :confirmed, scheduled_at: Time.zone.now),
       build_stubbed(:league_match, status: :confirmed, forfeit_by: :home_team_forfeit),
       build_stubbed(:league_match, status: :confirmed, forfeit_by: :away_team_forfeit),
       build_stubbed(:league_match, status: :confirmed, forfeit_by: :mutual_forfeit),

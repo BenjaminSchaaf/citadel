@@ -11,6 +11,7 @@
         %th.home-team Home Team
         %th.vs vs
         %th.away-team Away Team
+        %th Date
         %th
 
       %tbody
@@ -37,6 +38,9 @@
 
               %td.away-team
                 = match_p.away_team.link
+
+            %td.date
+              = match_p.scheduled_at if match.scheduled_at
 
             %td.match-page
               = match_p.link('Match Page')

@@ -17,6 +17,7 @@ describe API::V1::MatchesController, type: :request do
       expect(match_h).to_not be_nil
       expect(match_h['forfeit_by']).to eq(match.forfeit_by)
       expect(match_h['status']).to eq(match.status)
+      expect(match_h['scheduled_at']).to eq(match.scheduled_at)
       expect(match_h['league']['name']).to eq(match.league.name)
       expect(match_h['home_team']['name']).to eq(match.home_team.name)
       expect(match_h['away_team']['name']).to eq(match.away_team.name)

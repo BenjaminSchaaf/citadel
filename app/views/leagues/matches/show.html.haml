@@ -12,6 +12,8 @@
   - if @league.divisions.size > 1
     #{@match.division.name} -
   = match_p.round_s
+  - if @match.scheduled_at.present?
+    \- #{match_p.scheduled_at}
 
 - if @match.bye?
   %br
@@ -59,5 +61,8 @@
 
   - if @match.home_team.schedule_data && @match.away_team.schedule_data
     = render 'leagues/matches/schedule', match: @match, league: @league
+
+  - if @league.allow_rescheduling || !@match.schedule_edits.empty?
+    = render 'leagues/matches/schedule_edits', match: @match, edit: @edit
 
   = render 'leagues/matches/match_comms', league: @league, match: @match, comm: @comm, comms: @comms
