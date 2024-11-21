@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       end
 
       get 'users/steam_id/:id', to: 'users#steam_id'
-      resources :users, only: [:show]
+      resources :users, only: [:show] do
+        member do
+          get 'bans'
+        end
+      end
       resources :teams, only: [:show]
     end
   end
