@@ -2,6 +2,7 @@ module Leagues
   module MatchesHelper
     include MatchPermissions
     include Matches::PickBanPermissions
+    include Matches::ScheduleEditPermissions
 
     def user_on_either_teams?(match = nil)
       match ||= @match

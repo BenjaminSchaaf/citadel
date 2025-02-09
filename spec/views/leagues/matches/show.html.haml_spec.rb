@@ -33,6 +33,7 @@ describe 'leagues/matches/show' do
     assign(:rounds, rounds)
     assign(:comm, League::Match::Comm.new(match: match))
     assign(:comms, comms)
+    assign(:edit, League::Match::ScheduleEdit.new(match: match))
 
     (home_team.users + away_team.users + comms.map(&:created_by)).each do |user|
       allow(user).to receive(:can?).and_return(true)
@@ -241,6 +242,60 @@ describe 'leagues/matches/show' do
       allow(match).to receive(:map_pool).and_return(map_pool)
     end
 
+    include_examples 'displays matches'
+  end
+
+  context 'with match date' do
+    before { match.scheduled_at = Time.zone.now }
+
+    include_examples 'displays matches'
+  end
+
+  shared_examples 'without rescheduling' do
+    context 'without rescheduling' do
+      before { league.allow_rescheduling }
+
+      include_examples 'displays matches'
+    end
+  end
+
+  include_examples 'without rescheduling'
+
+  shared_context 'mock edits' do
+    before do
+      schedule_edits = double('ScheduleEdits', empty?: false, ordered: edits)
+      allow(match).to receive(:schedule_edits).and_return(schedule_edits)
+    end
+  end
+
+  context 'with pending schedule edits' do
+    let(:edits) { [build_stubbed(:league_match_schedule_edit, created_by: user, match: match)] }
+
+    include_context 'mock edits'
+
+    context 'match pending' do
+      include_examples 'displays matches'
+      include_examples 'without rescheduling'
+    end
+
+    context 'match confirmed' do
+      before { match.status = :confirmed }
+
+      include_examples 'displays matches'
+    end
+  end
+
+  context 'with approved schedule edits' do
+    let(:edits) do
+      [
+        build_stubbed(:league_match_schedule_edit, created_by: user, match: match, decided_by: user,
+                                                   approved: false),
+        build_stubbed(:league_match_schedule_edit, created_by: user, match: match, decided_by: user,
+                                                   approved: true),
+      ]
+    end
+
+    include_context 'mock edits'
     include_examples 'displays matches'
   end
 end
