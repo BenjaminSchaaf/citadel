@@ -65,4 +65,6 @@ RSpec.configure do |config|
 
   # Include url helpers
   config.include Rails.application.routes.url_helpers
+
+  config.include JsonHelpers
 end
