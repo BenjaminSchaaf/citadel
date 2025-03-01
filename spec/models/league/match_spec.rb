@@ -19,6 +19,8 @@ describe League::Match do
 
   it { should have_many(:comms).class_name('Match::Comm').dependent(:destroy) }
 
+  it { should have_many(:schedule_edits).class_name('Match::ScheduleEdit').dependent(:destroy) }
+
   it { should allow_value('').for(:round_name) }
   it { should validate_length_of(:round_name).is_at_least(0) }
 

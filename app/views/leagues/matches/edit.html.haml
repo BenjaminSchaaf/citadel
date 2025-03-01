@@ -8,7 +8,7 @@
 .mb-5
   = bootstrap_form_for @match, as: :match, url: match_path(@match) do |f|
     = f.errors_on :base
-    = render 'match_form', f: f, div: @match.division
+    = render 'match_form', f: f, div: @match.division, editing: true
 
     .d-flex.justify-content-end
       = link_to 'Cancel', match_path(@match), class: 'btn btn-link mr-2'

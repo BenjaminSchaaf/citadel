@@ -74,6 +74,10 @@ class League
       result
     end
 
+    def scheduled_at
+      match.scheduled_at.strftime('%c')
+    end
+
     private
 
     def score_results

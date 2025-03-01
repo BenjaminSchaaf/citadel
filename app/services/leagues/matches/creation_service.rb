@@ -37,11 +37,17 @@ module Leagues
       end
 
       def notify_message(match)
-        if match.bye?
-          "You have a match BYE for #{match.home_team.name}."
-        else
-          "You have an upcoming match: #{match.home_team.name} vs #{match.away_team.name}."
-        end
+        msg = if match.bye?
+                "You have a match BYE for #{match.home_team.name}"
+              else
+                "You have an upcoming match: #{match.home_team.name} vs #{match.away_team.name}"
+              end
+
+        msg << if match.scheduled_at
+                 " scheduled for #{match.scheduled_at.strftime('%c')}."
+               else
+                 '.'
+               end
       end
     end
   end

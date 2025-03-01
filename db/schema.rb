@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_142550) do
+ActiveRecord::Schema.define(version: 2024_05_22_191745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -308,6 +308,21 @@ ActiveRecord::Schema.define(version: 2020_07_19_142550) do
     t.index ["winner_id"], name: "index_league_match_rounds_on_winner_id"
   end
 
+  create_table "league_match_schedule_edits", force: :cascade do |t|
+    t.integer "match_id", null: false
+    t.integer "created_by_id", null: false
+    t.integer "decided_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "scheduled_at", null: false
+    t.integer "deciding_team", limit: 2, null: false
+    t.boolean "approved"
+    t.index ["created_by_id"], name: "index_league_match_schedule_edits_on_created_by_id"
+    t.index ["decided_by_id"], name: "index_league_match_schedule_edits_on_decided_by_id"
+    t.index ["match_id"], name: "index_league_match_schedule_edits_on_match_id"
+    t.index ["updated_at"], name: "index_league_match_schedule_edits_on_updated_at"
+  end
+
   create_table "league_matches", id: :serial, force: :cascade do |t|
     t.integer "home_team_id"
     t.integer "away_team_id"
@@ -330,6 +345,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_142550) do
     t.integer "total_home_team_round_wins", default: 0, null: false
     t.integer "total_away_team_round_wins", default: 0, null: false
     t.integer "total_round_draws", default: 0, null: false
+    t.datetime "scheduled_at"
     t.index ["away_team_id"], name: "index_league_matches_on_away_team_id"
     t.index ["home_team_id"], name: "index_league_matches_on_home_team_id"
     t.index ["loser_id"], name: "index_league_matches_on_loser_id"
@@ -487,6 +503,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_142550) do
     t.decimal "points_per_forfeit_loss", default: "0.0", null: false
     t.boolean "forfeit_all_matches_when_roster_disbands", default: true, null: false
     t.boolean "hide_rosters", default: false, null: false
+    t.boolean "allow_rescheduling", default: true, null: false
     t.index ["format_id"], name: "index_leagues_on_format_id"
     t.index ["query_name_cache"], name: "index_leagues_on_query_name_change", opclass: :gist_trgm_ops, using: :gist
   end
@@ -691,6 +708,9 @@ ActiveRecord::Schema.define(version: 2020_07_19_142550) do
   add_foreign_key "league_match_rounds", "league_rosters", column: "loser_id"
   add_foreign_key "league_match_rounds", "league_rosters", column: "winner_id"
   add_foreign_key "league_match_rounds", "maps"
+  add_foreign_key "league_match_schedule_edits", "league_matches", column: "match_id"
+  add_foreign_key "league_match_schedule_edits", "users", column: "created_by_id"
+  add_foreign_key "league_match_schedule_edits", "users", column: "decided_by_id"
   add_foreign_key "league_matches", "league_rosters", column: "away_team_id"
   add_foreign_key "league_matches", "league_rosters", column: "home_team_id"
   add_foreign_key "league_matches", "league_rosters", column: "loser_id"

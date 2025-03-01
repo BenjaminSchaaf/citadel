@@ -5,7 +5,7 @@
     - if match.picking_completed? || user_can_edit_league?
       = render 'leagues/matches/match_scores_form', match: match
 
-- if !match.pending? && !match.confirmed? && !user_can_edit_league?
+- if !match.pending? && !match.confirmed?
   %table.table.mb-0
     - present_collection(match.rounds).each do |round_p|
       %tr
